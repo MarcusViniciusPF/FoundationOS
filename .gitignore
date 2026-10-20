@@ -1,0 +1,35 @@
+# Credenciais e variáveis de ambiente
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Dependências
+node_modules/
+**/node_modules/
+
+# Compilação
+dist/
+**/dist/
+build/
+**/build/
+
+# Dados internos
+backups/
+logs/
+uploads/
+*.log
+
+# Arquivos temporários
+.cache/
+*.tmp
+*.bak
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Prisma Client gerado automaticamente
+app/src/generated/prisma/

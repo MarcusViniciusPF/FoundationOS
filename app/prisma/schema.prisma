@@ -1,0 +1,154 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id             String   @id @default(cuid())
+  discordId      String   @unique
+  robloxId       String?  @unique
+  robloxUsername String?
+  currentRank    String?
+  department     String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  actionsExecuted Action[] @relation("ActionExecutor")
+  actionsReceived Action[] @relation("ActionTarget")
+}
+
+model Action {
+  id        String   @id @default(cuid())
+  actionId  String   @unique
+  type      String
+  status    String   @default("COMPLETED")
+  reason    String?
+  metadata  Json?
+
+  executorId String?
+  targetId   String?
+
+  executor User? @relation("ActionExecutor", fields: [executorId], references: [id])
+  target   User? @relation("ActionTarget", fields: [targetId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ApprovalRequest {
+  id                  String   @id @default(cuid())
+  requestId           String   @unique
+  type                String
+  status              String   @default("PENDING")
+  reason              String?
+  metadata            Json?
+
+  executorDiscordId   String
+  targetDiscordId     String?
+  approvedByDiscordId String?
+  deniedByDiscordId   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Application {
+  id              String   @id @default(cuid())
+  applicationId   String   @unique
+  type            String
+  status          String   @default("OPEN")
+  ownerDepartment String?
+  requiredRank    String?
+  cooldownHours   Int      @default(24)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Case {
+  id                 String   @id @default(cuid())
+  caseId             String   @unique
+  category           String?
+  status             String   @default("OPEN")
+  title              String
+  description        String?
+  targetDiscordId    String?
+  createdByDiscordId String
+  metadata           Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Warning {
+  id                String   @id @default(cuid())
+  warningId         String   @unique
+  severity          String
+  reason            String
+  targetDiscordId   String
+  issuedByDiscordId String
+  department        String?
+
+  active            Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+}
+
+model Certificate {
+  id                 String   @id @default(cuid())
+  certificateId      String   @unique
+  name               String
+  status             String   @default("ACTIVE")
+  department         String?
+  targetDiscordId    String
+  issuedByDiscordId  String?
+  revokedByDiscordId String?
+  revokedReason      String?
+
+  issuedAt  DateTime @default(now())
+  revokedAt DateTime?
+}
+
+model License {
+  id                   String   @id @default(cuid())
+  licenseId            String   @unique
+  status               String   @default("PENDING")
+  department           String?
+  targetDiscordId      String
+  requestedByDiscordId String
+  approvedByDiscordId  String?
+  reason               String?
+
+  startDate DateTime?
+  endDate   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model RankLock {
+  id                 String   @id @default(cuid())
+  rankLockId         String   @unique
+  targetDiscordId    String
+  maxRank            String
+  reason             String
+  createdByDiscordId String
+  removedByDiscordId String?
+  removedReason      String?
+
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  removedAt DateTime?
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
