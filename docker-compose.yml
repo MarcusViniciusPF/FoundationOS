@@ -15,10 +15,10 @@ services:
     container_name: foundationos-bot
     restart: unless-stopped
     env_file:
-      - ./app/.env
+      - ./.env
     working_dir: /app
     volumes:
-      - ./app:/app
+      - ./:/app
       - ./logs:/logs
       - ./backups:/backups
       - ./uploads:/uploads

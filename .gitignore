@@ -32,4 +32,4 @@ uploads/
 Thumbs.db
 
 # Prisma Client gerado automaticamente
-app/src/generated/prisma/
+src/generated/prisma/
