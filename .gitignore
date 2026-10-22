@@ -33,3 +33,6 @@ Thumbs.db
 
 # Prisma Client gerado automaticamente
 src/generated/prisma/
+
+# Instalação antiga preservada durante a migração
+/app/
