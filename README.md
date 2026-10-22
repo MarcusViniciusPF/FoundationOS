@@ -55,28 +55,36 @@ O PostgreSQL mantém os dados persistentes, enquanto o Redis compõe a infraestr
 
 A arquitetura foi planejada para permitir a expansão gradual das funcionalidades e a integração com sistemas externos.
 
+
 ## Estrutura do repositório
 
 O FoundationOS utiliza uma arquitetura modular, com o código-fonte organizado diretamente na raiz do repositório.
 
+```text
 FoundationOS/
 ├── src/
 │   ├── config/           # Configurações da aplicação
 │   ├── database/         # Integração com PostgreSQL e Prisma
-│   ├── discord/          # Cliente, comandos e eventos do Discord
-│   │   ├── commands/
-│   │   └── events/
+│   ├── discord/          # Integração com o Discord
+│   │   ├── commands/     # Comandos do bot
+│   │   └── events/       # Eventos do Discord
 │   ├── redis/            # Integração com Redis
-│   └── index.ts          # Ponto de entrada da aplicação
+│   └── index.ts          # Ponto de entrada
+│
 ├── prisma/
 │   ├── migrations/       # Histórico das migrations
-│   └── schema.prisma     # Modelagem do banco de dados
-├── docker-compose.yml    # Configuração da infraestrutura
+│   └── schema.prisma     # Modelagem do banco
+│
+├── docker-compose.yml    # Infraestrutura Docker
 ├── package.json          # Dependências e scripts
 ├── package-lock.json
 ├── prisma.config.ts      # Configuração do Prisma
 ├── tsconfig.json         # Configuração do TypeScript
-└── README.md
+└── README.md             # Documentação do projeto
+```
+
+A aplicação é desenvolvida com TypeScript e Node.js, utilizando Docker Compose para organizar os serviços. Credenciais e configurações sensíveis são mantidas fora do controle de versão.
+
 
 A aplicação é desenvolvida com TypeScript e Node.js, utilizando Docker Compose para organizar os serviços. As credenciais e configurações sensíveis são mantidas fora do controle de versão.
 
