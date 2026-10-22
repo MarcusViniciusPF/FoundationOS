@@ -57,13 +57,28 @@ A arquitetura foi planejada para permitir a expansão gradual das funcionalidade
 
 ## Estrutura do repositório
 
-- `app/src/` — código-fonte da aplicação.
-- `app/src/discord/` — integração, eventos e comandos do Discord.
-- `app/src/config/` — configurações da aplicação.
-- `app/src/database/` — acesso ao banco de dados.
-- `app/src/redis/` — integração com Redis.
-- `app/prisma/` — schema e migrations do banco de dados.
-- `docker-compose.yml` — configuração dos serviços.
+O FoundationOS utiliza uma arquitetura modular, com o código-fonte organizado diretamente na raiz do repositório.
+
+FoundationOS/
+├── src/
+│   ├── config/           # Configurações da aplicação
+│   ├── database/         # Integração com PostgreSQL e Prisma
+│   ├── discord/          # Cliente, comandos e eventos do Discord
+│   │   ├── commands/
+│   │   └── events/
+│   ├── redis/            # Integração com Redis
+│   └── index.ts          # Ponto de entrada da aplicação
+├── prisma/
+│   ├── migrations/       # Histórico das migrations
+│   └── schema.prisma     # Modelagem do banco de dados
+├── docker-compose.yml    # Configuração da infraestrutura
+├── package.json          # Dependências e scripts
+├── package-lock.json
+├── prisma.config.ts      # Configuração do Prisma
+├── tsconfig.json         # Configuração do TypeScript
+└── README.md
+
+A aplicação é desenvolvida com TypeScript e Node.js, utilizando Docker Compose para organizar os serviços. As credenciais e configurações sensíveis são mantidas fora do controle de versão.
 
 ## Desenvolvimento
 
